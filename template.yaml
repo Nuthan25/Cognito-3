@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Two Lambda Functions
+
+Resources:
+  HelloWorldFunction1:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: hello_world/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Events:
+        HelloWorld1:
+          Type: Api
+          Properties:
+            Path: /hello1
+            Method: get
+
+  HelloWorldFunction2:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: hello_world1/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Events:
+        HelloWorld2:
+          Type: Api
+          Properties:
+            Path: /hello2
+            Method: get
+
+Outputs:
+  HelloWorldFunction1:
+    Description: "Hello World Lambda Function 1 ARN"
+    Value: !GetAtt HelloWorldFunction1.Arn
+
+  HelloWorldFunction2:
+    Description: "Hello World Lambda Function 2 ARN"
+    Value: !GetAtt HelloWorldFunction2.Arn
